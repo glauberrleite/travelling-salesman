@@ -3,6 +3,9 @@
 
 using namespace std;
 
+// Limit of times to search for better solution
+int const LIMIT = 5;
+
 void printRoute(vector<int>& route){
 
   cout << '[';
@@ -13,14 +16,37 @@ void printRoute(vector<int>& route){
   cout << ']' << endl;
 }
 
+Node * buildSuccessor(Node * node){
+  Node* successor;
+
+  // We know that we must preserve the first and the last
+  // elements. So we have 9 elements with chance to swap,
+  // which give (9!)/(2!*(9-2)!) = 36 different possibilities
+  std::vector<int> newRoute = node->getRoute();
+
+  successor = new Node(newRoute);
+
+  return successor;
+}
+
 // Hill-Climbing Algorithm
-void optimize(Node * node){
+void optimize(Node * node, int sequence = 0){
 
-  Node * neighbour = node->buildSuccessor();
+  Node * neighbour = buildSuccessor(node);
 
+  //
   if (node <= neighbour) {
 
-    cout << "Found the best solution!" << endl;
+    sequence++;
+
+    if(sequence < LIMIT){
+
+      cout << "Looking for a better solution..." << endl;
+      optimize(node, sequence);
+
+    } else{
+          cout << "Found the best solution!" << endl;
+    }
 
   } else {
 

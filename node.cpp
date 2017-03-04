@@ -65,18 +65,3 @@ Node::Node(std::vector<int> &route){
   // Calculating score
   this->score = calculateScore();
 }
-
-Node* Node::buildSuccessor(){
-  Node* successor;
-
-  // We know that we must preserve the first and the last
-  // elements. So we have 9 elements with chance to swap,
-  // which give (9!)/(2!*(9-2)!) = 36 different possibilities
-  std::vector<int> newRoute = this->route;
-
-  // To implement
-
-  successor = new Node(newRoute);
-
-  return successor;
-}
