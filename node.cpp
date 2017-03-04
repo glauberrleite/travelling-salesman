@@ -13,21 +13,61 @@ const int Node::distance[10][10] = {
   {80, 40, 48, INT_MAX, 80, 35, 57, INT_MAX, INT_MAX, 0}
 };
 
+std::vector<int>& Node::getRoute(){
+  return route;
+}
+
+int Node::getScore(){
+  return score;
+}
+
+bool Node::operator<(Node& comp){
+  return score < comp.getScore();
+}
+
+int Node::calculateScore(){
+  int score = 0;
+  for(int i = 0; i < this->route.size() - 1; ++i)
+  {
+    int city1 = this->route[i];
+    int city2 = this->route[i + 1];
+    
+    if (distance[city1 - 1][city2 - 1] == INT_MAX){
+      return INT_MAX;
+    } else {
+      score += distance[city1 - 1][city2 - 1];
+    }
+  }
+
+  return score;
+}
+
 Node::Node(int startingCity){
-  this->startingCity = startingCity;
 
-  route.resize(11);
+  this->route.resize(11);
 
-  route[0] = startingCity;
+  this->route[0] = startingCity;
+  this->route[10] = startingCity;
 
+  // Build an arbitrary route where each city is visited once
+  for(int i = startingCity + 1; i < startingCity + route.size(); ++i){
+    int index = i - startingCity;
+    route[index] = (i % 10) != 0 ? i % 10 : 10;
+  }
+
+  // Calculating score
+  this->score = calculateScore();
 }
 
 Node::Node(std::vector<int> &route){
   this->route = route;
+
+  // Calculating score
+  this->score = calculateScore();
 }
 
 std::vector<Node> Node::buildSuccessors(){
   std::vector<Node> successors;
 
-
+  return successors;
 }

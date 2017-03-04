@@ -1,5 +1,5 @@
 #include<vector>
-#include<limits.h>
+#include<climits>
 
 class Node {
 public:
@@ -7,7 +7,11 @@ public:
   Node(std::vector<int> &route);
   std::vector<Node> buildSuccessors();
   static const int distance[10][10];
+  std::vector<int>& getRoute();
+  int getScore();
+  bool operator<(Node &comp);
 private:
-  int startingCity;
+  int score;
   std::vector<int> route;
+  int calculateScore();
 };
