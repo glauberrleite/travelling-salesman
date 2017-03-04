@@ -21,8 +21,8 @@ int Node::getScore(){
   return score;
 }
 
-bool Node::operator<(Node& comp){
-  return score < comp.getScore();
+bool Node::operator<=(Node& comp){
+  return score <= comp.getScore();
 }
 
 int Node::calculateScore(){
@@ -31,7 +31,7 @@ int Node::calculateScore(){
   {
     int city1 = this->route[i];
     int city2 = this->route[i + 1];
-    
+
     if (distance[city1 - 1][city2 - 1] == INT_MAX){
       return INT_MAX;
     } else {
@@ -50,7 +50,7 @@ Node::Node(int startingCity){
   this->route[10] = startingCity;
 
   // Build an arbitrary route where each city is visited once
-  for(int i = startingCity + 1; i < startingCity + route.size(); ++i){
+  for(int i = startingCity + 1; i < startingCity + this->route.size(); ++i){
     int index = i - startingCity;
     route[index] = (i % 10) != 0 ? i % 10 : 10;
   }
@@ -66,8 +66,17 @@ Node::Node(std::vector<int> &route){
   this->score = calculateScore();
 }
 
-std::vector<Node> Node::buildSuccessors(){
-  std::vector<Node> successors;
+Node* Node::buildSuccessor(){
+  Node* successor;
 
-  return successors;
+  // We know that we must preserve the first and the last
+  // elements. So we have 9 elements with chance to swap,
+  // which give (9!)/(2!*(9-2)!) = 36 different possibilities
+  std::vector<int> newRoute = this->route;
+
+  // To implement
+
+  successor = new Node(newRoute);
+
+  return successor;
 }

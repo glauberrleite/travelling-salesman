@@ -13,6 +13,26 @@ void printRoute(vector<int>& route){
   cout << ']' << endl;
 }
 
+// Hill-Climbing Algorithm
+void optimize(Node * node){
+
+  Node * neighbour = node->buildSuccessor();
+
+  if (node <= neighbour) {
+
+    cout << "Found the best solution!" << endl;
+
+  } else {
+
+    cout << "Found a better solution!" << endl;
+
+    node = neighbour;
+
+    optimize(node);
+  }
+
+}
+
 int main (){
 
   int start;
@@ -21,16 +41,19 @@ int main (){
 
   cin >> start;
 
-  // Hill-Climbing Algorithm
-  Node solution(start);
 
+  Node * solution = new Node(start);
+
+  optimize(solution);
+
+  // Printing Results
   cout << "The route is ";
 
-  printRoute(solution.getRoute());
+  printRoute(solution->getRoute());
 
   cout << "The total distance is ";
 
-  cout << to_string(solution.getScore()) + " km" << endl;
+  cout << to_string(solution->getScore()) + " km" << endl;
 
   return 0;
 }
