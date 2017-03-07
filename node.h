@@ -9,6 +9,7 @@ public:
   std::vector<int>& getRoute();
   int getScore();
   bool operator<=(Node &comp);
+  bool isConnected();
 private:
   int score;
   std::vector<int> route;

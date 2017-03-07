@@ -25,6 +25,11 @@ bool Node::operator<=(Node& comp){
   return score <= comp.getScore();
 }
 
+bool Node::isConnected(){
+  if(score == INT_MAX) return 0;
+  else return 1;
+}
+
 int Node::calculateScore(){
   int score = 0;
   for(int i = 0; i < this->route.size() - 1; ++i)
