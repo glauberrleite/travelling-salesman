@@ -10,7 +10,7 @@ int const LIMIT = 10000;
 
 // Pseudo Random generator
 std::mt19937 randomGenerator;
-std::uniform_int_distribution<std::mt19937::result_type> dist(1,10);
+std::uniform_int_distribution<std::mt19937::result_type> dist(1,9);
 
 void printRoute(vector<int>& route){
 
